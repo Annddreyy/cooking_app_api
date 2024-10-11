@@ -34,5 +34,32 @@ def get_clients():
     return jsonify(clients_json)
 
 
+@app.route('/api/v1/recipes')
+def get_recipes():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute('SELECT * FROM recipe')
+
+    recipes = cur.fetchall()
+
+    recipes_json = []
+    for recipe in recipes:
+        recipes_json.append(
+            {
+                'id': recipe[0],
+                'title': recipe[1],
+                'callories': recipe[2],
+                'cooking_time': recipe[3],
+                'complexity': recipe[4],
+                'description': recipe[5],
+                'image_path': recipe[6],
+                'date': recipe[7]
+            }
+        )
+
+    return jsonify(recipes_json)
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=1234)
