@@ -61,6 +61,29 @@ def get_recipes():
     return jsonify(recipes_json)
 
 
+@app.route('/api/v1/recipes/<int:recipe_id>')
+def get_one_recipe(recipe_id):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute(f'SELECT * FROM recipe WHERE recipe_id={recipe_id}')
+
+    recipe = cur.fetchone()
+
+    recipe_json = {
+        'id': recipe[0],
+        'title': recipe[1],
+        'callories': recipe[2],
+        'cooking_time': recipe[3],
+        'complexity': recipe[4],
+        'description': recipe[5],
+        'image_path': recipe[6],
+        'date': recipe[7]
+    }
+
+    return jsonify(recipe_json)
+
+
 @app.route('/api/v1/recipe_types')
 def get_recipe_types():
     conn = get_connection()
