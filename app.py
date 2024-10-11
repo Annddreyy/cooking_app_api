@@ -4,31 +4,35 @@ from db import get_connection
 
 app = Flask(__name__)
 
-@app.route('/api/v1/recipes')
-def get_recipes():
+@app.route('/api/v1/clients')
+def get_clients():
     conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute('SELECT * FROM recipe')
+    cur.execute('SELECT * FROM client')
 
-    recipes = cur.fetchall()
+    clients = cur.fetchall()
 
-    recipes_json = []
-    for recipe in recipes:
-        recipes_json.append(
+    clients_json = []
+    for client in clients:
+        clients_json.append(
             {
-                'id': recipe[0],
-                'title': recipe[1],
-                'callories': recipe[2],
-                'cooking_time': recipe[3]
+                'id': client[0],
+                'surname': client[1],
+                'name': client[2],
+                'patronymic': client[3],
+                'phone': client[4],
+                'image_path': client[5],
+                'email': client[6],
+                'password': client[7]
             }
         )
 
     cur.close()
     conn.close()
 
-    return jsonify(recipes_json)
+    return jsonify(clients_json)
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host="0.0.0.0", port=80)
+    app.run(debug=True, port=1234)
