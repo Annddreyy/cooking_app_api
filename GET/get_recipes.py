@@ -31,7 +31,7 @@ def get_recipes():
     return jsonify(recipes_json)
 
 
-@app.route('/api/v1/recipes/<int:recipe_id>')
+@get_recipes.route('/api/v1/recipes/<int:recipe_id>')
 def get_one_recipe(recipe_id):
     conn = get_connection()
     cur = conn.cursor()
