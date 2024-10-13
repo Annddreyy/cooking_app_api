@@ -3,10 +3,10 @@ from flask import Blueprint, jsonify
 from db import get_connection
 
 
-get_clients = Blueprint('get_clients', __name__)
+get_clients_blueprint = Blueprint('get_clients', __name__)
 
 
-@get_clients.route('/api/v1/clients')
+@get_clients_blueprint.route('/api/v1/clients')
 def get_clients():
     conn = get_connection()
     cur = conn.cursor()
