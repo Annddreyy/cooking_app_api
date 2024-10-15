@@ -6,7 +6,7 @@ from db import get_connection
 get_client_blueprint = Blueprint('get_client', __name__)
 
 
-@get_client_blueprint.route('/api/v1/client/<int:client_id>')
+@get_client_blueprint.route('/api/v1/client/<int:client_id>', methods=['GET'])
 def get_clients(client_id):
     conn = get_connection()
     cur = conn.cursor()

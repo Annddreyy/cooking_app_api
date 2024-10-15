@@ -4,7 +4,7 @@ from db import get_connection
 
 get_authorization_info_blueprint = Blueprint('get_authorization_info', __name__)
 
-@get_authorization_info_blueprint.route('/api/v1/authorization')
+@get_authorization_info_blueprint.route('/api/v1/authorization', methods=['GET'])
 def get_authorization_info():
     conn = get_connection()
     cur = conn.cursor()

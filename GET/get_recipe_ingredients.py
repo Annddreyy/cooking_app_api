@@ -4,7 +4,7 @@ from db import get_connection
 
 get_recipe_ingredients_blueprint = Blueprint('get_recipe_ingredients', __name__)
 
-@get_recipe_ingredients_blueprint.route('/api/v1/recipe_ingredients/<int:recipe_id>')
+@get_recipe_ingredients_blueprint.route('/api/v1/recipe_ingredients/<int:recipe_id>', methods=['GET'])
 def get_recipe_ingredients(recipe_id):
     conn = get_connection()
     cur = conn.cursor()
