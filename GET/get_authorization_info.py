@@ -27,4 +27,8 @@ def get_authorization_info():
 
         return jsonify(information_json)
     except:
+        return jsonify({'message': 'error'})
+    finally:
+        cur.close()
+        conn.close()
 
