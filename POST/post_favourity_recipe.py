@@ -4,8 +4,8 @@ from db import get_connection
 
 post_favourity_recipe_blueprint = Blueprint('post_favourity_recipe', __name__)
 
-@post_favourity_recipe_blueprint.route('/api/v1/favourite_recipes/<int:client_id>', methods=['POST'])
-def add_favourity_recipe(client_id):
+@post_favourity_recipe_blueprint.route('/api/v1/favourite_recipes', methods=['POST'])
+def add_favourity_recipe():
     global conn, cur
     try:
         conn = get_connection()
