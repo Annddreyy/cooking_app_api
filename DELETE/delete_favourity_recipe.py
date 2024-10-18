@@ -1,5 +1,3 @@
-from crypt import methods
-
 from flask import Blueprint, jsonify, request
 
 from db import get_connection
