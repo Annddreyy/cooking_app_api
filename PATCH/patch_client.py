@@ -15,25 +15,12 @@ def patch_client(client_id):
 
         data = request.json
 
-        encoded_image = data['image_path']
-
-        image_bytes = base64.b64decode(encoded_image)
-
-        github_token = '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'
-        g = Github(github_token)
-
-        repo = g.get_user().get_repo('kartinki')
-
-        file_name = generate_random_filename(16) + '.png'
-
-        full_path = 'https://github.com/koiikf/kartinki/blob/main/users/' + file_name
-
-        repo.create_file('users/' + file_name, 'Add file', image_bytes)
 
         cur.execute(f'SELECT surname, name, patronymic, phone, image_path FROM client '
                     f'WHERE client_id={client_id}')
 
         information = list(cur.fetchone())
+
 
         if 'surname' in data:
             information[0] = data['surname']
@@ -44,7 +31,21 @@ def patch_client(client_id):
         if 'phone' in data:
             information[3] = data['phone']
         if 'image_path' in data:
+            encoded_image = data['image_path']
+
+            image_bytes = base64.b64decode(encoded_image)
+
+            github_token = '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'
+            g = Github(github_token)
+
+            repo = g.get_user().get_repo('kartinki')
+
+            file_name = generate_random_filename(16) + '.png'
+
+            full_path = 'https://github.com/koiikf/kartinki/blob/main/users/' + file_name
             information[4] = full_path
+
+            repo.create_file('users/' + file_name, 'Add file', image_bytes)
 
 
         cur.execute('UPDATE client '
