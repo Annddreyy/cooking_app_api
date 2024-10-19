@@ -11,7 +11,7 @@ def get_recipes():
         conn = get_connection()
         cur = conn.cursor()
 
-        cur.execute('SELECT * FROM recipe')
+        cur.execute('SELECT * FROM recipe WHERE is_user_recipe=1')
 
         recipes = cur.fetchall()
 
