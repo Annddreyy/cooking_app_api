@@ -11,6 +11,7 @@ from GET.get_recipe_instructions import get_recipe_instructions_blueprint
 from GET.get_recipe_types import get_recipe_types_blueprint
 from GET.get_recipe_with_recipe_type import get_recipe_with_recipe_type_blueprint
 from GET.get_recipes import get_recipes_blueprint
+from GET.get_user_recipe import get_user_recipe_blueprint
 from PATCH.patch_client import patch_clients_blueprint
 from POST.post_client import post_client_blueprint
 from POST.post_favourity_recipe import post_favourity_recipe_blueprint
@@ -28,6 +29,7 @@ app.register_blueprint(get_recipe_with_recipe_type_blueprint)
 app.register_blueprint(get_favourite_recipes_blueprint)
 app.register_blueprint(get_most_popular_recipe_blueprint)
 app.register_blueprint(get_new_recipes_blueprint)
+app.register_blueprint(get_user_recipe_blueprint)
 
 app.register_blueprint(post_client_blueprint)
 app.register_blueprint(post_favourity_recipe_blueprint)
