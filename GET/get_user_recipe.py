@@ -4,7 +4,7 @@ from db import get_connection
 
 get_user_recipe_blueprint = Blueprint('get_user_recipe', __name__)
 
-@get_user_recipe_blueprint.route("/api/v1/user_recipes/<int:client_id>")
+@get_user_recipe_blueprint.route("/api/v1/user_recipes/<int:client_id>", methods=['GET'])
 def get_user_recipes(client_id):
     global conn, cursor
     try:

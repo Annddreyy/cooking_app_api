@@ -4,7 +4,7 @@ from db import get_connection
 
 get_favourite_recipes_blueprint = Blueprint('get_favourite_recipes', __name__)
 
-@get_favourite_recipes_blueprint.route('/api/v1/favourite_recipes/<int:client_id>')
+@get_favourite_recipes_blueprint.route('/api/v1/favourite_recipes/<int:client_id>', methods=['GET'])
 def get_favourite_recipes(client_id):
     global cur, conn
     try:

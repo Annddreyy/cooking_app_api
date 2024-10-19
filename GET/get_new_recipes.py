@@ -4,7 +4,7 @@ from GET.get_recipes import get_recipes_blueprint
 from db import get_connection
 
 get_new_recipes_blueprint = Blueprint('get_new_recipe', __name__)
-@get_recipes_blueprint.route('/api/v1/new_recipes')
+@get_recipes_blueprint.route('/api/v1/new_recipes', methods=['GET'])
 def get_new_recipes():
     global conn, cur
     try:

@@ -4,7 +4,7 @@ from db import get_connection
 
 get_most_popular_recipe_blueprint = Blueprint('most_popular_recipe', __name__)
 
-@get_most_popular_recipe_blueprint.route('/api/v1/most_popular_recipe')
+@get_most_popular_recipe_blueprint.route('/api/v1/most_popular_recipe', methods=['GET'])
 def get_most_popular_recipe():
     global conn, cur
     try:
@@ -14,7 +14,7 @@ def get_most_popular_recipe():
         cur.execute('SELECT * FROM recipe '
                     'WHERE recipe_id = ('
                     '   SELECT recipe_id FROM favourity_recipe '
-                    '   GROUP BY recipe_id'
+                    '   GROUP BY recipe_id '
                     '   ORDER BY COUNT(*) DESC '
                     '   LIMIT 1'
                     ');'

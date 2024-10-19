@@ -31,4 +31,3 @@ def get_authorization_info():
     finally:
         cur.close()
         conn.close()
-
