@@ -11,14 +11,19 @@ def get_most_popular_recipe():
         conn = get_connection()
         cur = conn.cursor()
 
-        cur.execute('SELECT * FROM recipe '
-                    'WHERE recipe_id = ('
-                    '   SELECT recipe_id FROM favourity_recipe '
-                    '   GROUP BY recipe_id '
-                    '   ORDER BY COUNT(*) DESC '
-                    '   LIMIT 1'
-                    ');'
-        )
+        cur.execute('''
+        SELECT * FROM recipe 
+        WHERE recipe_id = (
+            SELECT recipe_id FROM favourity_recipe 
+            WHERE recipe_id IN (
+                SELECT recipe_id FROM recipe 
+                WHERE is_user_recipe=1
+            )
+            GROUP BY recipe_id 
+            ORDER BY COUNT(*) DESC 
+            LIMIT 1
+        );
+        ''')
 
         recipe = cur.fetchone()
 

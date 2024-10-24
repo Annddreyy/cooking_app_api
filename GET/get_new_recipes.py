@@ -11,11 +11,11 @@ def get_new_recipes():
         conn = get_connection()
         cur = conn.cursor()
 
-        cur.execute('SELECT * FROM recipe')
+        cur.execute('SELECT * FROM recipe WHERE is_user_recipe=1')
 
         recipes = cur.fetchall()
 
-        recipes = sorted(recipes, key=lambda item: item[-1], reverse=True)[:5]
+        recipes = sorted(recipes, key=lambda item: item[-2], reverse=True)[:5]
 
         recipes_json = []
         for recipe in recipes:
