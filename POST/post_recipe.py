@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, jsonify, request
 
 from add_image_github import create_image
@@ -22,12 +24,13 @@ def post_recipe():
         client_id = recipe_data['client_id']
 
         image_path = create_image(recipe_data['image_path'], 'recipes/')
-        date = '2024-10-11'
+        now = datetime.now()
+        formatted_date = now.strftime('%Y-%m-%d')
 
         cur.execute('INSERT INTO recipe(title, callories, cooking_time, '
                     'complexity, description, image_path, date, is_user_recipe) '
                     f"VALUES('{title}', '{callories}', '{cooking_time}', '{complexity}', "
-                    f"'{description}', '{image_path}', '{date}', 2)")
+                    f"'{description}', '{image_path}', '{formatted_date}', 2)")
         conn.commit()
 
         cur.execute('SELECT recipe_id FROM recipe ORDER BY recipe_id DESC LIMIT 1')
