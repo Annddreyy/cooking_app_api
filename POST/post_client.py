@@ -5,6 +5,7 @@ import string
 from flask import Blueprint, request, jsonify
 from github import Github
 
+from add_image_github import create_image
 from db import get_connection
 
 post_client_blueprint = Blueprint('post_client', __name__)
@@ -18,20 +19,7 @@ def post_client():
 
         client = request.json
 
-        encoded_image = client['image_path']
-
-        image_bytes = base64.b64decode(encoded_image)
-
-        github_token = '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'
-        g = Github(github_token)
-
-        repo = g.get_user().get_repo('kartinki')
-
-        file_name = generate_random_filename(16) + '.png'
-
-        full_path = 'https://github.com/koiikf/kartinki/blob/main/users/' + file_name
-
-        repo.create_file('users/' + file_name, 'Add file', image_bytes)
+        full_path = create_image(client['image_path'], 'users/')
 
         cur.execute('INSERT INTO client(surname, name, patronymic, phone, email, image_path, password) '
                     f"VALUES ('{client['surname']}', '{client['name']}', '{client['patronymic']}', "
@@ -51,7 +39,3 @@ def post_client():
         cur.close()
         conn.close()
 
-
-def generate_random_filename(length=16):
-    characters = string.hexdigits + string.digits
-    return ''.join(random.choice(characters) for _ in range(length))

@@ -15,6 +15,7 @@ from GET.get_user_recipe import get_user_recipe_blueprint
 from PATCH.patch_client import patch_clients_blueprint
 from POST.post_client import post_client_blueprint
 from POST.post_favourity_recipe import post_favourity_recipe_blueprint
+from POST.post_recipe import post_recipe_blueprint
 
 app = Flask(__name__)
 
@@ -33,6 +34,7 @@ app.register_blueprint(get_user_recipe_blueprint)
 
 app.register_blueprint(post_client_blueprint)
 app.register_blueprint(post_favourity_recipe_blueprint)
+app.register_blueprint(post_recipe_blueprint)
 
 app.register_blueprint(patch_clients_blueprint)
 

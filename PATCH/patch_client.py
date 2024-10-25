@@ -1,9 +1,6 @@
-import base64
-
 from flask import Blueprint, jsonify, request
-from github import Github
 
-from POST.post_client import generate_random_filename
+from add_image_github import create_image
 from db import get_connection
 
 patch_clients_blueprint = Blueprint('patch_client', __name__)
@@ -31,21 +28,8 @@ def patch_client(client_id):
         if 'phone' in data:
             information[3] = data['phone']
         if 'image_path' in data:
-            encoded_image = data['image_path']
-
-            image_bytes = base64.b64decode(encoded_image)
-
-            github_token = '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'
-            g = Github(github_token)
-
-            repo = g.get_user().get_repo('kartinki')
-
-            file_name = generate_random_filename(16) + '.png'
-
-            full_path = 'https://github.com/koiikf/kartinki/blob/main/users/' + file_name
+            full_path = create_image(data['image_path'], 'users/')
             information[4] = full_path
-
-            repo.create_file('users/' + file_name, 'Add file', image_bytes)
 
 
         cur.execute('UPDATE client '
